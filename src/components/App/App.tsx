@@ -2,6 +2,7 @@ import { ThemeProvider } from "styled-components";
 import lightTheme, { ThemeProps } from "../../themes/light";
 import { createGlobalStyle } from "styled-components";
 import { Type } from "../Type";
+import { Box } from "../Box";
 
 const GlobalStyle = createGlobalStyle<{ theme: ThemeProps }>`
   body {
@@ -14,9 +15,11 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeProps }>`
 export const App = () => (
   <ThemeProvider theme={lightTheme}>
     <GlobalStyle />
-    <Type size="xl" weight="bold" as="h1">
-      Welcome to this form
-    </Type>
+    <Box rounded>
+      <Type size="xl" weight="bold" as="h1">
+        Welcome to this form
+      </Type>
+    </Box>
   </ThemeProvider>
 );
 
