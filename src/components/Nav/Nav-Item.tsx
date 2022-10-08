@@ -11,7 +11,7 @@ export const NavItem = ({ children, active, icon }: NavItemProps) => (
   <S.NavItem active={active} icon={icon}>
     <S.NavItemButton>
       <S.NavItemMedia>{icon}</S.NavItemMedia>
-      <span>{children}</span>
+      <S.NavItemText>{children}</S.NavItemText>
     </S.NavItemButton>
   </S.NavItem>
 );
