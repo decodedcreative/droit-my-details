@@ -2,6 +2,7 @@ const colors = {
   active: "#182185",
   background: "#FFFFFF",
   borders: "#E2E8F0",
+  textfields: "#F8FAFC",
   headings: "#0C124E",
   interactive: "#141E82",
   page: "#F5F5F5",
