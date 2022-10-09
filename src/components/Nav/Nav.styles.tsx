@@ -7,7 +7,7 @@ export const NavList = styled("ul")`
   margin: 0;
   padding: 0;
 
-  @media screen and (min-width: 640px) and (max-width: 960px) {
+  @media screen and (min-width: 641px) and (max-width: 960px) {
     display: flex;
   }
 `;
@@ -21,6 +21,10 @@ export const NavItem = styled("li")<NavItemProps>`
     css`
       ${NavItemMedia} {
         border-left: 2px solid ${(props) => props.theme.colors.active};
+
+        @media screen and (min-width: 641px) and (max-width: 960px) {
+          border-left: 0;
+        }
       }
 
       ${NavItemButton} {

@@ -20,14 +20,14 @@ export const RadioLabel = styled("label")`
 export const RadioBackground = styled("div")`
   background-color: ${(props) => props.theme.colors.page};
   border: ${(props) => props.theme.general.borderWidth} solid
-    ${(props) => props.theme.colors.borders};
+    ${(props) => props.theme.colors.text};
   border-radius: 50%;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
 `;
 
 export const RadioText = styled("span")`
@@ -35,7 +35,7 @@ export const RadioText = styled("span")`
 `;
 
 export const RadioInput = styled("input").attrs<RadioInputProps>({
-  type: "Radio",
+  type: "radio",
 })<RadioInputProps>`
   position: absolute;
   opacity: 0;
@@ -59,7 +59,7 @@ export const RadioIndicator = styled("div")`
   color: ${(props) => props.theme.colors.color10};
   transform: scale(0);
   transition: transform 0.05s ease-in;
-  border-width: 5px;
+  border-width: 4px;
   border-style: solid;
   border-color: ${(props) => props.theme.colors.interactive};
   border-radius: 50%;

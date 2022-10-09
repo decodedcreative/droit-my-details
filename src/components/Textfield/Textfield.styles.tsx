@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Textfield = styled("input")`
   appearance: none;
@@ -10,8 +10,7 @@ export const Textfield = styled("input")`
   font-family: ${(props) => props.theme.typography.fontFamily};
   font-size: ${(props) => props.theme.typography.sizes.default};
   line-height: ${(props) => props.theme.typography.lineHeight};
-  border: ${(props) => props.theme.general.borderWidth} solid
-    ${(props) => props.theme.colors.borders};
+  border: ${(props) => props.theme.general.borderWidth} solid transparent;
 
   &:focus::not(&:focus-visible) {
     outline: 0;

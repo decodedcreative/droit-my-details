@@ -6,6 +6,7 @@ export const Type = styled("p")<TypeProps>`
   font-family: ${(props) => props.theme.typography.fontFamily};
   line-height: ${(props) => props.theme.typography.lineHeight};
   margin: 0;
+  padding: 0;
   font-size: ${(props) =>
     props.size
       ? props.theme.typography.sizes[props.size]
