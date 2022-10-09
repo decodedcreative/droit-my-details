@@ -11,4 +11,10 @@ export const Box = styled("div")<BoxProps>`
     css`
       border-radius: ${(props) => props.theme.general.borderRadius};
     `}
+  ${(props) =>
+    props.verticalSpacing === "xxl" &&
+    css`
+      padding-top: ${(props) => props.theme.spacing.xxl};
+      padding-bottom: ${(props) => props.theme.spacing.xxl};
+    `}
 `;
