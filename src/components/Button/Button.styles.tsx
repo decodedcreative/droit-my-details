@@ -8,10 +8,13 @@ export const Button = styled("button")<ButtonProps>`
   cursor: pointer;
   font-family: ${(props) => props.theme.typography.fontFamily};
   font-size: ${(props) => props.theme.typography.fontSize};
+  font-weight: ${(props) => props.theme.typography.weights.bold};
   word-break: break-word;
   user-select: none;
   border-radius: 4px;
   padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
 
   ${(props) => css`
     &:focus-visible {
@@ -23,9 +26,36 @@ export const Button = styled("button")<ButtonProps>`
   `};
 
   ${(props) =>
+    props.size === "small" &&
+    css`
+      padding: 4px 6px;
+      font-size: ${(props) => props.theme.typography.sizes.xs};
+
+      ${ButtonMedia} {
+        width: 14px;
+        height: 14px;
+      }
+    `};
+
+  ${(props) =>
     props.variant === "primary" &&
     css`
       background-color: ${props.theme.colors.interactive};
       color: ${props.theme.colors.background};
     `};
+
+  ${(props) =>
+    props.variant === "link" &&
+    css`
+      background-color: transparent;
+      color: ${props.theme.colors.text};
+      border-color: transparent;
+    `};
+`;
+
+export const ButtonMedia = styled("span")`
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  margin-right: 5px;
 `;
