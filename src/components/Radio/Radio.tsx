@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import * as S from "./Radio.styles";
+import uniqid from "uniqid";
 
 export interface RadioInputProps extends ComponentPropsWithoutRef<"input"> {}
 
@@ -8,19 +9,20 @@ export interface RadioProps extends RadioInputProps {
 }
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
-  ({ label, ...props }, ref) => {
+  ({ id = uniqid("form-radio-"), label, ...props }, ref) => {
     const wrapperProps = {
       label,
     };
 
     const inputProps = {
+      id,
       ...props,
     };
 
     return (
       <S.Radio {...wrapperProps}>
         <S.RadioInput {...inputProps} ref={ref} />
-        <S.RadioLabel>
+        <S.RadioLabel htmlFor={id}>
           <S.RadioBackground>
             <S.RadioIndicator />
           </S.RadioBackground>
