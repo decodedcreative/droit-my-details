@@ -1,4 +1,7 @@
 import styled, { css } from "styled-components";
-import * as S from "./Dropdown.styles";
+import Select from "react-select";
 
-export const Dropdown = styled("div")``;
+export const Dropdown = styled(Select)`
+  width: 100%;
+  border: 0;
+`;
