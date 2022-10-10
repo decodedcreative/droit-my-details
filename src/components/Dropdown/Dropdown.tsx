@@ -3,12 +3,13 @@ import { OptionsOrGroups, GroupBase } from "react-select";
 import * as S from "./Dropdown.styles";
 export interface DropdownProps {
   disabled?: boolean;
+  name: string;
   options: string[];
-  onChangeMethod?: any;
+  onChange?: any;
 }
 
 export const Dropdown = forwardRef<any, DropdownProps>(
-  ({ disabled, options, onChangeMethod }: DropdownProps, ref) => {
+  ({ disabled, options, name, onChange }: DropdownProps, ref) => {
     let optionsObjArray:
       | OptionsOrGroups<unknown, GroupBase<unknown>>
       | undefined = [];
@@ -31,15 +32,19 @@ export const Dropdown = forwardRef<any, DropdownProps>(
       ];
     }
 
-    const handleSelectionChange = (option: any) => {
-      if (onChangeMethod && option) {
-        onChangeMethod(option.value);
+    const handleSelectionChange = (option: any, action: any) => {
+      if (onChange && option) {
+        onChange(null, {
+          [action.name]: option.value,
+        });
       }
     };
 
     return (
       <S.Dropdown
+        classNamePrefix="Select"
         isDisabled={disabled}
+        name={name}
         options={optionsObjArray}
         onChange={handleSelectionChange}
         ref={ref}

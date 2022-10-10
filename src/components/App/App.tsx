@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import * as S from "./App.styles";
 import lightTheme from "../../themes/light";
@@ -29,41 +29,82 @@ export const App = () => {
   const [numberOfEmailAddresses, setNumberOfEmailAddresses] = useState(1);
   const [activeNavItem] = useState(0);
   const [countries, setCountries] = useState<[] | string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [cities, setCities] = useState<[] | string[]>([]);
-  const cityDropdownRef = useRef<HTMLSelectElement>(null);
+  const initialFormState = {
+    firstName: "",
+    lastName: "",
+    country: "",
+    city: "",
+    cuisine: "",
+    email0: "",
+  };
+  const [form, setForm] = useState(initialFormState);
 
   useEffect(() => {
     (async () => {
       const countries = await getCountries();
-      const cities = await getCitiesByCountry(selectedCountry);
+      const cities = await getCitiesByCountry(form.country);
       setCountries(countries);
       setCities(cities);
     })();
-  }, [selectedCountry]);
+  }, [form]);
 
   const navigation = [
     {
       title: "My details",
       icon: <MyDetailsSvg />,
+      introHeading: "Welcome to this form",
+      introPara: "Please answer all the questions below before submitting.",
     },
     {
       title: "Profile",
       icon: <ProfileSvg />,
+      introHeading: "Welcome to Profile",
+      introPara: "Please answer all the questions below before submitting.",
     },
     {
       title: "Password",
       icon: <PasswordSvg />,
+      introHeading: "Welcome to Password",
+      introPara: "Please answer all the questions below before submitting.",
     },
     {
       title: "Plan",
       icon: <PlanSvg />,
+      introHeading: "Welcome to Plan",
+      introPara: "Please answer all the questions below before submitting.",
     },
     {
       title: "Billing",
       icon: <BillingSvg />,
+      introHeading: "Welcome to Billing",
+      introPara: "Please answer all the questions below before submitting.",
     },
   ];
+
+  const onFormChange = (
+    event: FormEvent | null,
+    formObj?: { name: string; value: string }
+  ) => {
+    let name = null;
+    let value = null;
+
+    if (event !== null) {
+      name = (event.target as HTMLInputElement).name;
+      value = (event.target as HTMLInputElement).value;
+    }
+    if (formObj) {
+      name = Object.entries(formObj)[0][0];
+      value = Object.entries(formObj)[0][1];
+    }
+
+    if (name !== null && value !== null) {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
+  };
 
   return (
     <ThemeProvider theme={lightTheme}>
@@ -73,11 +114,9 @@ export const App = () => {
           <Grid columns={12}>
             <Grid.Col span={10} offset={1}>
               <Type size="xl" weight="bold" as="h1">
-                Welcome to this form
+                {navigation[activeNavItem].introHeading}
               </Type>
-              <Type>
-                Please answer all the questions below before submitting.
-              </Type>
+              <Type>{navigation[activeNavItem].introPara}</Type>
             </Grid.Col>
           </Grid>
         </Section.Item>
@@ -115,20 +154,29 @@ export const App = () => {
                               <Form.Item
                                 label="First name"
                                 render={(props) => (
-                                  <Textfield name="firstName" {...props} />
+                                  <Textfield
+                                    name="firstName"
+                                    onChange={onFormChange}
+                                    {...props}
+                                  />
                                 )}
                               />
                               <Form.Item
                                 label="Last name"
                                 render={(props) => (
-                                  <Textfield name="lastName" {...props} />
+                                  <Textfield
+                                    name="lastName"
+                                    onChange={onFormChange}
+                                    {...props}
+                                  />
                                 )}
                               />
                               <Form.Item
                                 label="Country of residence"
                                 render={(props) => (
                                   <Dropdown
-                                    onChangeMethod={setSelectedCountry}
+                                    name="country"
+                                    onChange={onFormChange}
                                     options={countries}
                                     {...props}
                                   />
@@ -138,8 +186,9 @@ export const App = () => {
                                 label="City of residence"
                                 render={(props) => (
                                   <Dropdown
-                                    disabled={selectedCountry === ""}
-                                    onChangeMethod={setCities}
+                                    disabled={form.country === ""}
+                                    name="city"
+                                    onChange={onFormChange}
                                     options={cities}
                                     {...props}
                                   />
@@ -159,10 +208,30 @@ export const App = () => {
                                 role="radiogroup"
                                 render={(props) => (
                                   <>
-                                    <Radio label="French" name="cuisine" />
-                                    <Radio label="Italian" name="cuisine" />
-                                    <Radio label="Chinese" name="cuisine" />
-                                    <Radio label="Japanese" name="cuisine" />
+                                    <Radio
+                                      label="French"
+                                      name="cuisine"
+                                      onChange={onFormChange}
+                                      value="French"
+                                    />
+                                    <Radio
+                                      label="Italian"
+                                      name="cuisine"
+                                      onChange={onFormChange}
+                                      value="Italian"
+                                    />
+                                    <Radio
+                                      label="Chinese"
+                                      name="cuisine"
+                                      onChange={onFormChange}
+                                      value="Chinese"
+                                    />
+                                    <Radio
+                                      label="Japanese"
+                                      name="cuisine"
+                                      onChange={onFormChange}
+                                      value="Japanese"
+                                    />
                                   </>
                                 )}
                               />
@@ -175,7 +244,11 @@ export const App = () => {
                                   label="Email address"
                                   key={i}
                                   render={(props) => (
-                                    <Textfield name={`email${i}`} {...props} />
+                                    <Textfield
+                                      onChange={onFormChange}
+                                      name={`email${i}`}
+                                      {...props}
+                                    />
                                   )}
                                   suffix={
                                     i !== 0 ? (
@@ -223,7 +296,15 @@ export const App = () => {
                                   </Button>
                                 </Grid.Col>
                                 <Grid.Col>
-                                  <Button type="submit">Cancel</Button>
+                                  <Button
+                                    type="button"
+                                    onClick={(event) => {
+                                      setForm(initialFormState);
+                                      event.preventDefault();
+                                    }}
+                                  >
+                                    Cancel
+                                  </Button>
                                 </Grid.Col>
                               </Grid>
                             </Section.Item>
