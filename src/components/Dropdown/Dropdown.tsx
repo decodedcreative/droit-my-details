@@ -5,11 +5,10 @@ export interface DropdownProps {
   disabled?: boolean;
   options: string[];
   onChangeMethod?: any;
-  onChangeNext?: any;
 }
 
 export const Dropdown = forwardRef<any, DropdownProps>(
-  ({ disabled, options, onChangeMethod, onChangeNext }: DropdownProps, ref) => {
+  ({ disabled, options, onChangeMethod }: DropdownProps, ref) => {
     let optionsObjArray:
       | OptionsOrGroups<unknown, GroupBase<unknown>>
       | undefined = [];

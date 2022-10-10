@@ -129,7 +129,6 @@ export const App = () => {
                                 render={(props) => (
                                   <Dropdown
                                     onChangeMethod={setSelectedCountry}
-                                    onChangeNext={setCities}
                                     options={countries}
                                     {...props}
                                   />
@@ -142,7 +141,6 @@ export const App = () => {
                                     disabled={selectedCountry === ""}
                                     onChangeMethod={setCities}
                                     options={cities}
-                                    ref={cityDropdownRef}
                                     {...props}
                                   />
                                 )}
