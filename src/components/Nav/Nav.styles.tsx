@@ -45,6 +45,7 @@ export const NavItemButton = styled("button")`
   text-align: left;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   ${(props) => css`
     &:focus-visible {

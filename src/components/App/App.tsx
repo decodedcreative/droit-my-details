@@ -1,43 +1,46 @@
+import { useEffect, useRef, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import lightTheme, { ThemeProps } from "../../themes/light";
-import { createGlobalStyle } from "styled-components";
-import { Box } from "../Box";
-import { Nav } from "../Nav";
-import { Radio } from "../Radio";
-import { Section } from "../Section";
-import { Type } from "../Type";
-import { ReactComponent as MyDetailsSvg } from "../../images/details.svg";
-import { ReactComponent as ProfileSvg } from "../../images/profile.svg";
-import { ReactComponent as PasswordSvg } from "../../images/password.svg";
-import { ReactComponent as PlanSvg } from "../../images/plan.svg";
-import { ReactComponent as BillingSvg } from "../../images/billing.svg";
-import { ReactComponent as PlusSvg } from "../../images/plus.svg";
-import { ReactComponent as DeleteSvg } from "../../images/delete.svg";
-import { Grid } from "../Grid";
-import { Form } from "../Form";
-import { Textfield } from "../Textfield";
-import { Button } from "../Button";
-import { useState } from "react";
-
-const GlobalStyle = createGlobalStyle<{ theme: ThemeProps }>`
-  body {
-    background-color: ${(props) => props.theme.colors.page};
-    font-family: ${(props) => props.theme.typography.fontFamily};
-    margin: 0;
-  }
-
-  h1, h2, legend {
-    color: ${(props) => props.theme.colors.headings};
-  }
-
-  p {
-    color: ${(props) => props.theme.colors.text};
-  }
-`;
+import * as S from "./App.styles";
+import lightTheme from "../../themes/light";
+import { getCountries, getCitiesByCountry } from "../../api";
+import {
+  Box,
+  Button,
+  Dropdown,
+  Form,
+  Grid,
+  Nav,
+  Radio,
+  Section,
+  Textfield,
+  Type,
+} from "../";
+import {
+  MyDetailsSvg,
+  ProfileSvg,
+  PasswordSvg,
+  PlanSvg,
+  BillingSvg,
+  PlusSvg,
+  DeleteSvg,
+} from "../../images";
 
 export const App = () => {
   const [numberOfEmailAddresses, setNumberOfEmailAddresses] = useState(1);
   const [activeNavItem] = useState(0);
+  const [countries, setCountries] = useState<[] | string[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [cities, setCities] = useState<[] | string[]>([]);
+  const cityDropdownRef = useRef<HTMLSelectElement>(null);
+
+  useEffect(() => {
+    (async () => {
+      const countries = await getCountries();
+      const cities = await getCitiesByCountry(selectedCountry);
+      setCountries(countries);
+      setCities(cities);
+    })();
+  }, [selectedCountry]);
 
   const navigation = [
     {
@@ -64,7 +67,7 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={lightTheme}>
-      <GlobalStyle />
+      <S.App />
       <Section>
         <Section.Item verticalSpacing="xl">
           <Grid columns={12}>
@@ -89,6 +92,7 @@ export const App = () => {
                         <Nav.Item
                           icon={navObj.icon}
                           active={i === activeNavItem}
+                          key={i}
                         >
                           {navObj.title}
                         </Nav.Item>
@@ -123,13 +127,24 @@ export const App = () => {
                               <Form.Item
                                 label="Country of residence"
                                 render={(props) => (
-                                  <Textfield name="country" {...props} />
+                                  <Dropdown
+                                    onChangeMethod={setSelectedCountry}
+                                    onChangeNext={setCities}
+                                    options={countries}
+                                    {...props}
+                                  />
                                 )}
                               />
                               <Form.Item
                                 label="City of residence"
                                 render={(props) => (
-                                  <Textfield name="city" {...props} />
+                                  <Dropdown
+                                    disabled={selectedCountry === ""}
+                                    onChangeMethod={setCities}
+                                    options={cities}
+                                    ref={cityDropdownRef}
+                                    {...props}
+                                  />
                                 )}
                               />
                             </Section.Item>
