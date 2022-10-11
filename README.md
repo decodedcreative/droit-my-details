@@ -15,8 +15,7 @@ This app uses a Java API to provide data to the front-end React application. The
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-There were no unit tests written as part of this project. See x for more details.
+Launches the test runner in the interactive watch mode.\ However there were no unit tests written as part of this project.
 
 ### `yarn build`
 
