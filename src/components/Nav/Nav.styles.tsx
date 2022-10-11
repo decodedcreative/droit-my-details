@@ -39,6 +39,7 @@ export const NavItemButton = styled("button")`
   border: 1px solid transparent;
   color: inherit;
   font-size: inherit;
+  line-height: inherit;
   padding: ${(props) => props.theme.spacing.sm} 2px;
   margin: 0;
   width: 100%;
@@ -65,6 +66,7 @@ export const NavItemMedia = styled("span")`
   height: 14px;
   padding-left: 18px;
   padding-right: 18px;
+  line-height: normal;
 `;
 
 export const NavItemText = styled("span")``;

@@ -8,6 +8,14 @@ export const Dropdown = styled(Select)`
   .Select__control {
     border-color: transparent;
     background-color: ${(props) => props.theme.colors.textfields};
+    border-radius: 0;
+
+    &--is-focused {
+      border-color: ${(props) => props.theme.colors.interactive};
+      outline: ${(props) => props.theme.general.focusWidth} solid transparent;
+      outline-offset: ${(props) => props.theme.general.focusWidth};
+      box-shadow: ${(props) => props.theme.general.focusBoxShadow};
+    }
   }
 
   .Select__indicator-separator {
