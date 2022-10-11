@@ -16,6 +16,12 @@ export const Dropdown = styled(Select)`
       outline-offset: ${(props) => props.theme.general.focusWidth};
       box-shadow: ${(props) => props.theme.general.focusBoxShadow};
     }
+
+    &--is-disabled {
+      .Select__value-container > * {
+        color: ${(props) => props.theme.colors.text};
+      }
+    }
   }
 
   .Select__indicator-separator {

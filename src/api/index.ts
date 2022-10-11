@@ -13,7 +13,7 @@ export const getCountries = async () => {
 
 export const getCitiesByCountry = async (country: string) => {
   try {
-    const url = `http://localhost:8090/api/cities?country-name=${country}`;
+    const url = `api/cities?country-name=${country}`;
     const response = await axios.get<{ cities: string[] }>(url);
     return response.data.cities;
   } catch (err) {
