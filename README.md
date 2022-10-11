@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Droit - My Details
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple form page built in React with Typescript which utilises data retrieved from a Java-based API. For a full technical overview of the approach taken see [Project Notes](NOTES.md)
 
 ## Available Scripts
 
