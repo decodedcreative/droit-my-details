@@ -1,6 +1,16 @@
 const typography = {
   fontFamily: "'Inter', sans-serif",
   fontSize: "1rem",
+  lineHeights: {
+    default: "1.5",
+    xs: "1",
+    sm: "1.5",
+    md: "1.5",
+    lg: "1.5",
+    xl: "1.375",
+    xxl: "1.5",
+    xxxl: "1.5",
+  },
   sizes: {
     default: "1rem",
     xs: "0.75rem",

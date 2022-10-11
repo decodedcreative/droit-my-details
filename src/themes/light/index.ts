@@ -56,6 +56,16 @@ export interface ThemeProps {
       default: string;
       medium: string;
     };
+    lineHeights: {
+      default: string;
+      lg: string;
+      md: string;
+      sm: string;
+      xl: string;
+      xs: string;
+      xxl: string;
+      xxxl: string;
+    };
   };
 }
 

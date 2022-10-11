@@ -16,4 +16,8 @@ export const Type = styled("p")<TypeProps>`
     props.weight
       ? props.theme.typography.weights[props.weight]
       : props.theme.typography.weights["default"]};
+  line-height: ${(props) =>
+    props.lineHeight
+      ? props.theme.typography.lineHeights[props.lineHeight]
+      : props.theme.typography.lineHeights["default"]};
 `;
