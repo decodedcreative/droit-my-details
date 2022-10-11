@@ -16,16 +16,6 @@ const typography = {
     medium: "500",
     bold: "600",
   },
-  lineHeights: {
-    default: "1.5",
-    xs: "1",
-    sm: "1.5",
-    md: "1.5",
-    lg: "1.5",
-    xl: "1.375",
-    xxl: "1.5",
-    xxxl: "1.5",
-  },
   lineHeight: 1.5,
 };
 
