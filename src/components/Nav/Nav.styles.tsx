@@ -20,10 +20,21 @@ export const NavItem = styled("li")<NavItemProps>`
     props.active &&
     css`
       ${NavItemMedia} {
-        border-left: 2px solid ${(props) => props.theme.colors.active};
+        position: relative;
+
+        &:before {
+          content: "";
+          width: 2px;
+          height: 100%;
+          background-color: ${(props) => props.theme.colors.active};
+          position: absolute;
+          left: 0;
+        }
 
         @media screen and (min-width: 641px) and (max-width: 960px) {
-          border-left: 0;
+          &:before {
+            content: none;
+          }
         }
       }
 
@@ -67,6 +78,11 @@ export const NavItemMedia = styled("span")`
   padding-left: 18px;
   padding-right: 18px;
   line-height: normal;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const NavItemText = styled("span")``;
