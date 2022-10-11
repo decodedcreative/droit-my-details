@@ -27,7 +27,7 @@ import {
 
 export const App = () => {
   const [numberOfEmailAddresses, setNumberOfEmailAddresses] = useState(1);
-  const [activeNavItem] = useState(0);
+  const [activeNavItem, setActiveNavItem] = useState(0);
   const [countries, setCountries] = useState<[] | string[]>([]);
   const [cities, setCities] = useState<[] | string[]>([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -137,6 +137,10 @@ export const App = () => {
                           icon={navObj.icon}
                           active={i === activeNavItem}
                           key={i}
+                          onClick={(event) => {
+                            setActiveNavItem(i);
+                            event.preventDefault();
+                          }}
                         >
                           {navObj.title}
                         </Nav.Item>
@@ -319,18 +323,20 @@ export const App = () => {
                           <Section>
                             <Section.Item topSpacing="xl">
                               <Grid display="flex">
-                                <Grid.Col>
-                                  <Button
-                                    type="submit"
-                                    variant="primary"
-                                    onClick={(event) => {
-                                      setFormSubmitted(true);
-                                      event.preventDefault();
-                                    }}
-                                  >
-                                    Submit
-                                  </Button>
-                                </Grid.Col>
+                                {!formSubmitted && (
+                                  <Grid.Col>
+                                    <Button
+                                      type="submit"
+                                      variant="primary"
+                                      onClick={(event) => {
+                                        setFormSubmitted(true);
+                                        event.preventDefault();
+                                      }}
+                                    >
+                                      Submit
+                                    </Button>
+                                  </Grid.Col>
+                                )}
                                 <Grid.Col>
                                   <Button
                                     type="button"
