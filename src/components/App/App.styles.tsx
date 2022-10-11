@@ -5,6 +5,7 @@ export const App = createGlobalStyle<{ theme: ThemeProps }>`
   body {
     background-color: ${(props) => props.theme.colors.page};
     font-family: ${(props) => props.theme.typography.fontFamily};
+    line-height: ${(props) => props.theme.typography.lineHeight};
     margin: 0;
   }
 

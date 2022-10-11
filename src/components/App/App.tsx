@@ -30,6 +30,7 @@ export const App = () => {
   const [activeNavItem] = useState(0);
   const [countries, setCountries] = useState<[] | string[]>([]);
   const [cities, setCities] = useState<[] | string[]>([]);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const initialFormState = {
     firstName: "",
     lastName: "",
@@ -37,6 +38,10 @@ export const App = () => {
     city: "",
     cuisine: "",
     email0: "",
+    email1: "",
+    email2: "",
+    email3: "",
+    email4: "",
   };
   const [form, setForm] = useState(initialFormState);
 
@@ -113,7 +118,7 @@ export const App = () => {
         <Section.Item verticalSpacing="xl">
           <Grid columns={12}>
             <Grid.Col span={10} offset={1}>
-              <Type size="xl" weight="bold" as="h1">
+              <Type size="xl" weight="bold" as="h1" lineHeight="xl">
                 {navigation[activeNavItem].introHeading}
               </Type>
               <Type>{navigation[activeNavItem].introPara}</Type>
@@ -153,46 +158,62 @@ export const App = () => {
                             <Section.Item columns={2}>
                               <Form.Item
                                 label="First name"
-                                render={(props) => (
-                                  <Textfield
-                                    name="firstName"
-                                    onChange={onFormChange}
-                                    {...props}
-                                  />
-                                )}
+                                render={(props) =>
+                                  !formSubmitted ? (
+                                    <Textfield
+                                      name="firstName"
+                                      onChange={onFormChange}
+                                      {...props}
+                                    />
+                                  ) : (
+                                    form.firstName
+                                  )
+                                }
                               />
                               <Form.Item
                                 label="Last name"
-                                render={(props) => (
-                                  <Textfield
-                                    name="lastName"
-                                    onChange={onFormChange}
-                                    {...props}
-                                  />
-                                )}
+                                render={(props) =>
+                                  !formSubmitted ? (
+                                    <Textfield
+                                      name="lastName"
+                                      onChange={onFormChange}
+                                      {...props}
+                                    />
+                                  ) : (
+                                    form.lastName
+                                  )
+                                }
                               />
                               <Form.Item
                                 label="Country of residence"
-                                render={(props) => (
-                                  <Dropdown
-                                    name="country"
-                                    onChange={onFormChange}
-                                    options={countries}
-                                    {...props}
-                                  />
-                                )}
+                                render={(props) =>
+                                  !formSubmitted ? (
+                                    <Dropdown
+                                      name="country"
+                                      onChange={onFormChange}
+                                      options={countries}
+                                      {...props}
+                                    />
+                                  ) : (
+                                    form.country
+                                  )
+                                }
                               />
                               <Form.Item
                                 label="City of residence"
-                                render={(props) => (
-                                  <Dropdown
-                                    disabled={form.country === ""}
-                                    name="city"
-                                    onChange={onFormChange}
-                                    options={cities}
-                                    {...props}
-                                  />
-                                )}
+                                render={(props) =>
+                                  !formSubmitted ? (
+                                    <Dropdown
+                                      disabled={form.country === ""}
+                                      name="city"
+                                      onChange={onFormChange}
+                                      options={cities}
+                                      {...props}
+                                    />
+                                  ) : (
+                                    form.city
+                                  )
+                                }
                               />
                             </Section.Item>
                           </Section>
@@ -206,34 +227,38 @@ export const App = () => {
                               <Form.Item
                                 label="Favourite cuisine"
                                 role="radiogroup"
-                                render={(props) => (
-                                  <>
-                                    <Radio
-                                      label="French"
-                                      name="cuisine"
-                                      onChange={onFormChange}
-                                      value="French"
-                                    />
-                                    <Radio
-                                      label="Italian"
-                                      name="cuisine"
-                                      onChange={onFormChange}
-                                      value="Italian"
-                                    />
-                                    <Radio
-                                      label="Chinese"
-                                      name="cuisine"
-                                      onChange={onFormChange}
-                                      value="Chinese"
-                                    />
-                                    <Radio
-                                      label="Japanese"
-                                      name="cuisine"
-                                      onChange={onFormChange}
-                                      value="Japanese"
-                                    />
-                                  </>
-                                )}
+                                render={(props) =>
+                                  !formSubmitted ? (
+                                    <>
+                                      <Radio
+                                        label="French"
+                                        name="cuisine"
+                                        onChange={onFormChange}
+                                        value="French"
+                                      />
+                                      <Radio
+                                        label="Italian"
+                                        name="cuisine"
+                                        onChange={onFormChange}
+                                        value="Italian"
+                                      />
+                                      <Radio
+                                        label="Chinese"
+                                        name="cuisine"
+                                        onChange={onFormChange}
+                                        value="Chinese"
+                                      />
+                                      <Radio
+                                        label="Japanese"
+                                        name="cuisine"
+                                        onChange={onFormChange}
+                                        value="Japanese"
+                                      />
+                                    </>
+                                  ) : (
+                                    form.cuisine
+                                  )
+                                }
                               />
                             </Section.Item>
                             <Section.Item bottomSpacing="xl">
@@ -241,17 +266,21 @@ export const App = () => {
                                 new Array(numberOfEmailAddresses)
                               ).map((_, i) => (
                                 <Form.Item
-                                  label="Email address"
+                                  label={`Email address ${i + 1}`}
                                   key={i}
-                                  render={(props) => (
-                                    <Textfield
-                                      onChange={onFormChange}
-                                      name={`email${i}`}
-                                      {...props}
-                                    />
-                                  )}
+                                  render={(props) =>
+                                    !formSubmitted ? (
+                                      <Textfield
+                                        onChange={onFormChange}
+                                        name={`email${i}`}
+                                        {...props}
+                                      />
+                                    ) : (
+                                      form[`email${i}` as keyof typeof form]
+                                    )
+                                  }
                                   suffix={
-                                    i !== 0 ? (
+                                    i !== 0 && !formSubmitted ? (
                                       <Button
                                         size="small"
                                         variant="link"
@@ -271,7 +300,7 @@ export const App = () => {
                                   }
                                 />
                               ))}
-                              {numberOfEmailAddresses < 5 && (
+                              {numberOfEmailAddresses < 5 && !formSubmitted && (
                                 <Button
                                   size="small"
                                   media={<PlusSvg />}
@@ -291,7 +320,14 @@ export const App = () => {
                             <Section.Item topSpacing="xl">
                               <Grid display="flex">
                                 <Grid.Col>
-                                  <Button type="submit" variant="primary">
+                                  <Button
+                                    type="submit"
+                                    variant="primary"
+                                    onClick={(event) => {
+                                      setFormSubmitted(true);
+                                      event.preventDefault();
+                                    }}
+                                  >
                                     Submit
                                   </Button>
                                 </Grid.Col>
@@ -300,6 +336,7 @@ export const App = () => {
                                     type="button"
                                     onClick={(event) => {
                                       setForm(initialFormState);
+                                      setFormSubmitted(false);
                                       event.preventDefault();
                                     }}
                                   >
