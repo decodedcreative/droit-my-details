@@ -22,6 +22,10 @@ export const Dropdown = styled(Select)`
         color: ${(props) => props.theme.colors.text};
       }
     }
+
+    &:hover {
+      border-color: transparent;
+    }
   }
 
   .Select__indicator-separator {
