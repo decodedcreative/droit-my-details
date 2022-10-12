@@ -2,6 +2,12 @@
 
 A simple form page built in React with Typescript which utilises data retrieved from a Java-based API. For a full technical overview of the approach taken see [Project Notes](NOTES.md)
 
+To install locally:
+
+In a terminal application run `git clone https://github.com/decodedcreative/droit-my-details.git` to clone the project.
+
+Next run `yarn` to install all project dependencies.
+
 ## Available Scripts
 
 In the project directory, you can run:
